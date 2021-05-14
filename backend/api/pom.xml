@@ -6,7 +6,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <openapi.version>1.5.5</openapi.version>
+        <openapi.version>1.5.8</openapi.version>
         <mapsruct.version>1.4.2.Final</mapsruct.version>
         <aws.sdk.version>1.11.1004</aws.sdk.version>
         <mybatis.spring.boot.starter.version>2.1.4</mybatis.spring.boot.starter.version>

@@ -42,6 +42,9 @@ public class BaseResponseBodyAdvice extends ResponseEntityExceptionHandler imple
         if (body instanceof BaseErrorDto) {
             return body;
         }
+        if (request.getURI().toString().contains("/api-docs")) {
+            return body;
+        }
         return new BaseSuccessDto<>(body);
     }
 

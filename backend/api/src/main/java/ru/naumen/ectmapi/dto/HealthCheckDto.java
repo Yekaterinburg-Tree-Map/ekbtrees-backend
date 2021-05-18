@@ -9,7 +9,12 @@ import lombok.Data;
 @AllArgsConstructor
 public class HealthCheckDto {
 
+    public enum Status {
+        HEALTHY,
+        UNHEALTHY
+    }
+
     @Schema(description = "Информация о статусе приложения")
-    private String statusInfo;
+    private Status status;
 
 }

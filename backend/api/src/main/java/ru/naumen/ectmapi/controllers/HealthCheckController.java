@@ -13,7 +13,7 @@ public class HealthCheckController {
     @Operation(description = "Получение информации о статусе приложения")
     @GetMapping
     HealthCheckDto check() {
-        return new HealthCheckDto("Healthy");
+        return new HealthCheckDto(HealthCheckDto.Status.HEALTHY);
     }
 
 }

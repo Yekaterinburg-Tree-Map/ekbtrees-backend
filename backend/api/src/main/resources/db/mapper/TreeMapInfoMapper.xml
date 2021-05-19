@@ -2,12 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ru.naumen.ectmapi.repository.TreeMapInfoRepository">
 
-    <select id="findInRegion" resultType="ru.naumen.ectmapi.entity.TreeMapInfo">
-        SELECT id,
-               geographical_point,
-               diameter_crown,
-               type
+    <resultMap id="treeMapInfoMap" type="ru.naumen.ectmapi.entity.TreeMapInfo">
+        <id property="id" column="id"/>
+        <result property="geographicalPoint" column="geographical_point"/>
+        <result property="diameterCrown" column="diameter_crown"/>
+
+        <association property="species"
+                     columnPrefix="species_"
+                     resultMap="ru.naumen.ectmapi.repository.SpeciesTreeRepository.speciesTreeMap"/>
+    </resultMap>
+
+    <select id="findInRegion" resultMap="treeMapInfoMap">
+        SELECT tree.id              AS id,
+               geographical_point   AS geographical_point,
+               diameter_crown       AS diameter_crown,
+               species_tree.id      AS species_id,
+               species_tree.title   AS species_title
         FROM tree
+        LEFT JOIN species_tree ON tree.species_id = species_tree.id
         WHERE
             ST_Within(
                     geographical_point,

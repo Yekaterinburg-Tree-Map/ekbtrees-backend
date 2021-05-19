@@ -6,7 +6,10 @@ import ru.naumen.ectmapi.entity.TreeMapInfo;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = PointConverter.class)
+@Mapper(componentModel = "spring", uses = {
+        PointConverter.class,
+        SpeciesTreeConverter.class
+})
 public interface TreeMapInfoConverter {
 
     List<TreeMapInfoDto> toDto(List<TreeMapInfo> treesMapInfo);

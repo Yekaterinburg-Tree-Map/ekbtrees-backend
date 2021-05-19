@@ -12,7 +12,7 @@ import ru.naumen.ectmapi.service.TreeService;
 
 
 @RestController
-@RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@RequiredArgsConstructor
 @RequestMapping(value = "api/tree", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TreeController {
 

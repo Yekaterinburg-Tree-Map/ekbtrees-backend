@@ -3,7 +3,7 @@ CREATE SEQUENCE IF NOT EXISTS tree_id_seq START WITH 1;
 CREATE TABLE IF NOT EXISTS tree (
     id bigint PRIMARY KEY DEFAULT nextval('tree_id_seq'),
     geographical_point geometry NOT NULL,
-    type text,
+    species_id bigint,
     tree_height double precision,
     number_tree_trunks int,
     trunk_girth double precision,

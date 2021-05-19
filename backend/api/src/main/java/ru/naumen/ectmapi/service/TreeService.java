@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.naumen.ectmapi.entity.Tree;
+import ru.naumen.ectmapi.repository.SpeciesTreeRepository;
 import ru.naumen.ectmapi.repository.TreeRepository;
 
 @Service
@@ -11,8 +12,13 @@ import ru.naumen.ectmapi.repository.TreeRepository;
 public class TreeService {
 
     private final TreeRepository treeRepository;
+    private final SpeciesTreeRepository speciesTreeRepository;
 
     public void save(Tree tree){
+        if(!speciesTreeRepository.isExists(tree.getSpecies().getId())) {
+            throw new IllegalStateException("Species not found");
+        }
+
         if (tree.isNew()) {
             treeRepository.create(tree);
         } else {

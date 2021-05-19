@@ -18,7 +18,7 @@ public class Tree extends Entity<Long> {
     /**
      * Порода дерева
      */
-    private String type;
+    private SpeciesTree species;
 
     /**
      * Высота дерева в метрах

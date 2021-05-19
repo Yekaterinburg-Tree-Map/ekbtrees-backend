@@ -17,5 +17,5 @@ public class TreeMapInfoDto {
     private Double diameterOfCrown;
 
     @Schema(description = "Порода дерева")
-    private String type;
+    private SpeciesTreeDto species;
 }

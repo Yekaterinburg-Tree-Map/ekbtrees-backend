@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ru.naumen.ectmapi.repository.SpeciesTreeRepository">
+
+    <resultMap id="speciesTreeMap" type="ru.naumen.ectmapi.entity.SpeciesTree">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+    </resultMap>
+
+    <insert id="create" parameterType="ru.naumen.ectmapi.entity.SpeciesTree"
+            useGeneratedKeys="true" keyProperty="speciesTree.id" keyColumn="id">
+        INSERT INTO species_tree (title)
+        VALUES (#{speciesTree.title})
+    </insert>
+
+    <select id="findAll" resultMap="speciesTreeMap">
+        SELECT id,
+               title
+        FROM species_tree
+    </select>
+
+    <delete id="delete">
+        DELETE FROM species_tree
+        WHERE id = #{id}
+    </delete>
+    
+    <select id="isExists" resultType="boolean">
+        SELECT EXISTS (
+            SELECT 1
+            FROM species_tree
+            WHERE id = #{id}
+        )
+    </select>
+
+</mapper>

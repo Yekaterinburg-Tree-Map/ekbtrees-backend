@@ -21,5 +21,5 @@ public class TreeMapInfo extends Entity<Long> {
     /**
      * Порода дерева
      */
-    private String type;
+    private SpeciesTree species;
 }

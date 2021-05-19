@@ -2,11 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ru.naumen.ectmapi.repository.TreeRepository">
 
+    <resultMap id="treeMap" type="ru.naumen.ectmapi.entity.Tree">
+        <id property="id" column="id"/>
+        <result property="geographicalPoint" column="geographical_point"/>
+        <result property="treeHeight" column="tree_height"/>
+        <result property="numberTreeTrunks" column="number_tree_trunks"/>
+        <result property="trunkGirth" column="trunk_girth"/>
+        <result property="diameterCrown" column="diameter_crown"/>
+        <result property="heightFirstBranch" column="height_first_branch"/>
+        <result property="conditionAssessment" column="condition_assessment"/>
+        <result property="age" column="age"/>
+        <result property="treePlantingType" column="tree_planting_type"/>
+        <result property="created" column="created"/>
+        <result property="updated" column="updated"/>
+        <result property="authorId" column="author_id"/>
+        <result property="status" column="status"/>
+
+        <association property="species"
+                     columnPrefix="species_"
+                     resultMap="ru.naumen.ectmapi.repository.SpeciesTreeRepository.speciesTreeMap"/>
+    </resultMap>
+
     <insert id="create" parameterType="ru.naumen.ectmapi.entity.Tree"
             useGeneratedKeys="true" keyProperty="tree.id" keyColumn="id">
-        INSERT INTO tree (geographical_point, type, tree_height, number_tree_trunks, trunk_girth, diameter_crown,
+        INSERT INTO tree (geographical_point, species_id, tree_height, number_tree_trunks, trunk_girth, diameter_crown,
                           height_first_branch, condition_assessment, age, tree_planting_type, author_id, status)
-        VALUES (#{tree.geographicalPoint}, #{tree.type}, #{tree.treeHeight}, #{tree.numberTreeTrunks}, #{tree.trunkGirth},
+        VALUES (#{tree.geographicalPoint}, #{tree.species.id}, #{tree.treeHeight}, #{tree.numberTreeTrunks}, #{tree.trunkGirth},
                 #{tree.diameterCrown}, #{tree.heightFirstBranch}, #{tree.conditionAssessment}, #{tree.age}, #{tree.treePlantingType},
                 #{tree.authorId}, #{tree.status})
     </insert>
@@ -14,7 +35,7 @@
     <update id="update">
         UPDATE tree
         SET geographical_point      = #{tree.geographicalPoint},
-            type                    = #{tree.type},
+            species_id              = #{tree.species.id},
             tree_height             = #{tree.treeHeight},
             number_tree_trunks      = #{tree.numberTreeTrunks},
             trunk_girth             = #{tree.trunkGirth},
@@ -28,24 +49,26 @@
         WHERE id = #{tree.id}
     </update>
 
-    <select id="find" resultType="ru.naumen.ectmapi.entity.Tree">
-        SELECT id,
-               geographical_point,
-               type,
-               tree_height,
-               number_tree_trunks,
-               trunk_girth,
-               diameter_crown,
-               height_first_branch,
-               condition_assessment,
-               age,
-               tree_planting_type,
-               created,
-               updated,
-               author_id,
-               status
+    <select id="find" resultMap="treeMap">
+        SELECT tree.id                  AS id,
+               geographical_point       AS geographical_point,
+               species_tree.id          AS species_id,
+               species_tree.title       AS species_title,
+               tree_height              AS tree_height,
+               number_tree_trunks       AS number_tree_trunks,
+               trunk_girth              AS trunk_girth,
+               diameter_crown           AS diameter_crown,
+               height_first_branch      AS height_first_branch,
+               condition_assessment     AS condition_assessment,
+               age                      AS age,
+               tree_planting_type       AS tree_planting_type,
+               created                  AS created,
+               updated                  AS updated,
+               author_id                AS author_id,
+               status                   AS status
         FROM tree
-        WHERE id = #{id}
+        LEFT JOIN species_tree ON species_id = species_tree.id
+        WHERE tree.id = #{id}
     </select>
 
     <delete id="delete">

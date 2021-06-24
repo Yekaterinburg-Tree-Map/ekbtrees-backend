@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ru.naumen.ectmapi.repository.TreesClusterRepository">
 
-    <select id="findInRegion" resultType="ru.naumen.ectmapi.entity.TreesCluster">
+    <select id="findInRegion" resultType="ru.naumen.ectmapi.entity.TreeCluster">
         SELECT
             ST_Centroid(points) AS centre,
             ST_NumGeometries(points) AS count

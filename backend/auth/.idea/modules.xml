@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ectm-auth.iml" filepath="$PROJECT_DIR$/ectm-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/auth.iml" filepath="$PROJECT_DIR$/auth.iml" />
     </modules>
   </component>
 </project>

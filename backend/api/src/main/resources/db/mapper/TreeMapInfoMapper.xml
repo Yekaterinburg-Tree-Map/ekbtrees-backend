@@ -9,7 +9,7 @@
 
         <association property="species"
                      columnPrefix="species_"
-                     resultMap="ru.naumen.ectmapi.repository.SpeciesTreeRepository.speciesTreeMap"/>
+                     resultMap="ru.ekbtreeshelp.api.repository.SpeciesTreeRepository.speciesTreeMap"/>
     </resultMap>
 
     <sql id="treeMapInfoColumns">

@@ -1,49 +1,54 @@
 {
-    "properties": [
-        {
-            "name": "oauth2.vk-secret-key",
-            "type": "java.lang.String",
-            "description": "Ключ от VK API."
-        },
-        {
-            "name": "oauth2.vk-app-id",
-            "type": "java.lang.String",
-            "description": "Идентификатор приложения VK."
-        },
-        {
-            "name": "oauth2.fb-secret-key",
-            "type": "java.lang.String",
-            "description": "Ключ от FB API."
-        },
-        {
-            "name": "oauth2.fb-app-id",
-            "type": "java.lang.String",
-            "description": "Идентификатор приложения FB."
-        },
-        {
-            "name": "oauth2.base-url",
-            "type": "java.lang.String",
-            "description": "Базовый URL для редиректа при использовании OAuth2."
-        },
-        {
-            "name": "jwt.access-token-lifespan",
-            "type": "java.lang.String",
-            "description": "Время жизни access token'а."
-        },
-        {
-            "name": "jwt.refresh-token-lifespan",
-            "type": "java.lang.String",
-            "description": "Время жизни refresh token'а."
-        },
-        {
-            "name": "jwt.access-token-secret",
-            "type": "java.lang.String",
-            "description": "Секрет access token'а в формате Base64URL."
-        },
-        {
-            "name": "jwt.refresh-token-secret",
-            "type": "java.lang.String",
-            "description": "Секрет refresh token'а в формате Base64URL."
-        }
-    ]
+  "properties": [
+    {
+      "name": "oauth2.vk-secret-key",
+      "type": "java.lang.String",
+      "description": "Ключ от VK API."
+    },
+    {
+      "name": "oauth2.vk-app-id",
+      "type": "java.lang.String",
+      "description": "Идентификатор приложения VK."
+    },
+    {
+      "name": "oauth2.fb-secret-key",
+      "type": "java.lang.String",
+      "description": "Ключ от FB API."
+    },
+    {
+      "name": "oauth2.fb-app-id",
+      "type": "java.lang.String",
+      "description": "Идентификатор приложения FB."
+    },
+    {
+      "name": "oauth2.base-url",
+      "type": "java.lang.String",
+      "description": "Базовый URL для редиректа при использовании OAuth2."
+    },
+    {
+      "name": "jwt.access-token-lifespan",
+      "type": "java.lang.String",
+      "description": "Время жизни access token'а."
+    },
+    {
+      "name": "jwt.refresh-token-lifespan",
+      "type": "java.lang.String",
+      "description": "Время жизни refresh token'а."
+    },
+    {
+      "name": "jwt.access-token-secret",
+      "type": "java.lang.String",
+      "description": "Секрет access token'а в формате Base64URL."
+    },
+    {
+      "name": "jwt.refresh-token-secret",
+      "type": "java.lang.String",
+      "description": "Секрет refresh token'а в формате Base64URL."
+    },
+    {
+      "name": "crypto.salt",
+      "type": "java.lang.String",
+      "description": "Соль для хеширования паролей."
+    }
+  ]
 }

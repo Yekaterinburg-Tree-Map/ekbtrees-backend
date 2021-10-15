@@ -32,7 +32,9 @@ services:
       initialBuckets: "ectm"
 
   resttests:
-    build: ../backend/rest-tests
+    build:
+      context: ../
+      dockerfile: rest-tests.Dockerfile
     environment:
       API_BASE_URI: "http://api"
       API_PORT: "8080"

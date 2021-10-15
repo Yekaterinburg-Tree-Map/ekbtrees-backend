@@ -20,10 +20,17 @@ services:
     environment:
       DATASOURCE_URL: "jdbc:postgresql://postgres:5432/ectm"
       SHOW_SQL: "true"
+      JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006
     ports:
       - "8081:8081"
+      - "5006:5006"
     depends_on:
       - postgres
+
+  admin:
+    image: donkeyhott/ekbtrees-admin:latest
+    ports:
+      - "8082:8082"
 
   postgres:
     image: postgis/postgis:12-3.0-alpine

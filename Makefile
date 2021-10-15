@@ -1,12 +1,18 @@
 
 build-api:
-	@cd backend/api && ./mvnw clean spring-boot:build-image -DskipTests
+	@./mvnw -T 1C clean spring-boot:build-image -pl backend/api -am -DskipTests
 
 build-auth:
-	@cd backend/auth && ./mvnw clean spring-boot:build-image -DskipTests
+	@./mvnw -T 1C clean spring-boot:build-image -pl backend/auth -am -DskipTests
+
+build-admin:
+	@./mvnw -T 1C clean spring-boot:build-image -pl backend/admin -am -DskipTests
+
+build-backend:
+	@./mvnw -T 1C clean spring-boot:build-image -pl backend/admin -pl backend/api -pl backend/auth -am -DskipTests
 
 build-rest-tests:
-	@cd backend/rest-tests && docker build -t docker.io/donkeyhott/ekbtrees-rest-tests:latest .
+	@docker build -f rest-tests.Dockerfile -t docker.io/donkeyhott/ekbtrees-rest-tests:latest .
 
 start:
 	@cd deployment && docker-compose up --build -d

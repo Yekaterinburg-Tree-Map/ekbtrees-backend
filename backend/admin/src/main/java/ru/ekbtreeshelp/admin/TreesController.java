@@ -37,6 +37,7 @@ public class TreesController {
     @PostMapping("/trees/change")
     void treeChanges(@RequestBody Tree tree, @RequestBody Long id)
     {
+
         var treesList = Collections.synchronizedList(new ArrayList<Tree>());
         var index = treesList.indexOf(id);
         treesList.set(index,tree);

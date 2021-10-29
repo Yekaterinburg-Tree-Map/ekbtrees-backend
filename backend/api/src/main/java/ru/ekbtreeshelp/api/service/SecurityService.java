@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import ru.ekbtreeshelp.api.entity.User;
-import ru.ekbtreeshelp.api.repository.UserRepository;
+import ru.ekbtreeshelp.core.entity.User;
+import ru.ekbtreeshelp.core.repository.UserRepository;
 import ru.ekbtreeshelp.api.security.JWTUserDetails;
 
 @Service

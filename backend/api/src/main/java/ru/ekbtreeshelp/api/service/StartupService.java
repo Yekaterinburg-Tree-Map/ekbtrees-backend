@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import ru.ekbtreeshelp.api.entity.SpeciesTree;
-import ru.ekbtreeshelp.api.repository.SpeciesTreeRepository;
+import ru.ekbtreeshelp.core.entity.SpeciesTree;
+import ru.ekbtreeshelp.core.repository.SpeciesTreeRepository;
 
 import java.util.Set;
 

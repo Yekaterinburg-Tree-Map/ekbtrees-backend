@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import ru.ekbtreeshelp.auth.config.OAuth2Config;
-import ru.ekbtreeshelp.auth.entity.Provider;
 import ru.ekbtreeshelp.auth.service.oauth2.OAuth2Service;
+import ru.ekbtreeshelp.core.entity.Provider;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

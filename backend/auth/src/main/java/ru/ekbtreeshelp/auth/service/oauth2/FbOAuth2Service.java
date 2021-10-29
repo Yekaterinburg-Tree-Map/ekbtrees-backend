@@ -1,7 +1,6 @@
 package ru.ekbtreeshelp.auth.service.oauth2;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
@@ -11,12 +10,12 @@ import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Service;
 import ru.ekbtreeshelp.auth.config.OAuth2Config;
 import ru.ekbtreeshelp.auth.constants.AuthConstants;
-import ru.ekbtreeshelp.auth.entity.Provider;
-import ru.ekbtreeshelp.auth.entity.User;
-import ru.ekbtreeshelp.auth.repository.RoleRepository;
-import ru.ekbtreeshelp.auth.repository.UserRepository;
 import ru.ekbtreeshelp.auth.service.TokensService;
 import ru.ekbtreeshelp.auth.utils.CookieUtils;
+import ru.ekbtreeshelp.core.entity.Provider;
+import ru.ekbtreeshelp.core.entity.User;
+import ru.ekbtreeshelp.core.repository.RoleRepository;
+import ru.ekbtreeshelp.core.repository.UserRepository;
 
 import javax.servlet.http.HttpServletResponse;
 

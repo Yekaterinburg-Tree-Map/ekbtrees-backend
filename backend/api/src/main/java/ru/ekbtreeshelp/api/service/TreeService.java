@@ -7,11 +7,11 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.ekbtreeshelp.api.converter.TreeConverter;
 import ru.ekbtreeshelp.api.dto.CreateTreeDto;
 import ru.ekbtreeshelp.api.dto.TreeDto;
-import ru.ekbtreeshelp.api.entity.SpeciesTree;
-import ru.ekbtreeshelp.api.entity.Tree;
-import ru.ekbtreeshelp.api.repository.FileRepository;
-import ru.ekbtreeshelp.api.repository.SpeciesTreeRepository;
-import ru.ekbtreeshelp.api.repository.TreeRepository;
+import ru.ekbtreeshelp.core.entity.SpeciesTree;
+import ru.ekbtreeshelp.core.entity.Tree;
+import ru.ekbtreeshelp.core.repository.FileRepository;
+import ru.ekbtreeshelp.core.repository.SpeciesTreeRepository;
+import ru.ekbtreeshelp.core.repository.TreeRepository;
 
 import java.util.Collection;
 import java.util.List;

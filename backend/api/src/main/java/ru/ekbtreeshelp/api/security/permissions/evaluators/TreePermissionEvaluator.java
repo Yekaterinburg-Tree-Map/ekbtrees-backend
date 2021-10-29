@@ -3,7 +3,7 @@ package ru.ekbtreeshelp.api.security.permissions.evaluators;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import ru.ekbtreeshelp.api.repository.TreeRepository;
+import ru.ekbtreeshelp.core.repository.TreeRepository;
 import ru.ekbtreeshelp.api.security.permissions.constants.Domains;
 import ru.ekbtreeshelp.api.security.permissions.constants.Permissions;
 

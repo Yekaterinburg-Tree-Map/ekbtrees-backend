@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.ekbtreeshelp.api.converter.FileConverter;
 import ru.ekbtreeshelp.api.dto.FileDto;
-import ru.ekbtreeshelp.api.entity.FileEntity;
+import ru.ekbtreeshelp.core.entity.FileEntity;
 import ru.ekbtreeshelp.api.service.FileService;
 
 import java.util.List;

@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.ekbtreeshelp.auth.constants.AuthConstants;
 import ru.ekbtreeshelp.auth.dto.NewUserDto;
-import ru.ekbtreeshelp.auth.entity.Provider;
-import ru.ekbtreeshelp.auth.entity.User;
 import ru.ekbtreeshelp.auth.exception.AuthServiceException;
-import ru.ekbtreeshelp.auth.repository.RoleRepository;
-import ru.ekbtreeshelp.auth.repository.UserRepository;
 import ru.ekbtreeshelp.auth.utils.CryptoUtils;
+import ru.ekbtreeshelp.core.entity.Provider;
+import ru.ekbtreeshelp.core.entity.User;
+import ru.ekbtreeshelp.core.repository.RoleRepository;
+import ru.ekbtreeshelp.core.repository.UserRepository;
 
 
 @Service
@@ -23,7 +23,7 @@ public class UserService {
     public User registerNewUser(NewUserDto newUserDto) {
 
         String email = newUserDto.getEmail();
-        
+
         if (email == null || newUserDto.getPassword() == null) {
             throw new AuthServiceException("Email and password are required");
         }
@@ -47,7 +47,7 @@ public class UserService {
     public User update(User user) {
         return userRepository.save(user);
     }
-    
+
     public boolean isUserExists(String email) {
         return userRepository.existsByEmail(email);
     }

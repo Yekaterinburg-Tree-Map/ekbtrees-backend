@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ekbtreeshelp.auth.constants.DefaultRoles;
 import ru.ekbtreeshelp.auth.dto.NewUserDto;
-import ru.ekbtreeshelp.auth.entity.Role;
-import ru.ekbtreeshelp.auth.entity.User;
-import ru.ekbtreeshelp.auth.repository.RoleRepository;
+import ru.ekbtreeshelp.core.entity.Role;
+import ru.ekbtreeshelp.core.entity.User;
+import ru.ekbtreeshelp.core.repository.RoleRepository;
 
 import java.util.List;
 import java.util.Set;

@@ -4,13 +4,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ekbtreeshelp.auth.config.JWTConfig;
 import ru.ekbtreeshelp.auth.dto.JwtDto;
-import ru.ekbtreeshelp.auth.entity.Role;
-import ru.ekbtreeshelp.auth.entity.User;
-import ru.ekbtreeshelp.auth.repository.UserRepository;
+import ru.ekbtreeshelp.core.entity.Role;
+import ru.ekbtreeshelp.core.entity.User;
+import ru.ekbtreeshelp.core.repository.UserRepository;
 
 import java.time.Instant;
 import java.util.Date;

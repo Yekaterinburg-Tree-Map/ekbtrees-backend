@@ -3,7 +3,7 @@ package ru.ekbtreeshelp.api.converter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ru.ekbtreeshelp.api.dto.TreeMapInfoDto;
-import ru.ekbtreeshelp.api.entity.Tree;
+import ru.ekbtreeshelp.core.entity.Tree;
 
 import java.util.List;
 

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import ru.ekbtreeshelp.api.security.permissions.constants.Domains;
-import ru.ekbtreeshelp.api.repository.CommentRepository;
+import ru.ekbtreeshelp.core.repository.CommentRepository;
 import ru.ekbtreeshelp.api.security.permissions.constants.Permissions;
 
 import java.util.Map;

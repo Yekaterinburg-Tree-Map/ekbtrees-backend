@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import ru.ekbtreeshelp.api.config.GeoConfig;
 import ru.ekbtreeshelp.api.dto.GeographicalPointDto;
 import ru.ekbtreeshelp.api.dto.TreeClusterDto;
-import ru.ekbtreeshelp.api.entity.Tree;
-import ru.ekbtreeshelp.api.repository.TreeRepository;
+import ru.ekbtreeshelp.core.entity.Tree;
+import ru.ekbtreeshelp.core.repository.TreeRepository;
 
 import java.util.List;
 import java.util.Map;

@@ -4,17 +4,6 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <properties>
-        <java.version>11</java.version>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <facebook.api.version>2.0.3.RELEASE</facebook.api.version>
-        <jjwt.version>0.6.0</jjwt.version>
-        <apache.commons.version>3.8.1</apache.commons.version>
-        <vk.api.version>1.0.9</vk.api.version>
-        <restfb.version>3.17.0</restfb.version>
-        <openapi.version>1.5.8</openapi.version>
-    </properties>
-
     <parent>
         <groupId>ru.ekbtreeshelp</groupId>
         <artifactId>ekbtreeshelp-parent</artifactId>
@@ -29,45 +18,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>ru.ekbtreeshelp</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-facebook</artifactId>
             <version>${facebook.api.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
         </dependency>
 
         <dependency>
@@ -101,22 +60,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-
     </dependencies>
 
     <build>

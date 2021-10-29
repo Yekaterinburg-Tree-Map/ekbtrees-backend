@@ -6,10 +6,10 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
-import ru.ekbtreeshelp.auth.entity.Provider;
 import ru.ekbtreeshelp.auth.service.oauth2.FbOAuth2Service;
 import ru.ekbtreeshelp.auth.service.oauth2.OAuth2Service;
 import ru.ekbtreeshelp.auth.service.oauth2.VkOAuth2Service;
+import ru.ekbtreeshelp.core.entity.Provider;
 
 import java.util.Map;
 

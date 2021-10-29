@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
-import ru.ekbtreeshelp.api.entity.FileEntity;
-import ru.ekbtreeshelp.api.repository.FileRepository;
+import ru.ekbtreeshelp.core.entity.FileEntity;
+import ru.ekbtreeshelp.core.repository.FileRepository;
 import ru.ekbtreeshelp.api.service.exception.FileServiceException;
 
 import javax.xml.bind.DatatypeConverter;

@@ -3,7 +3,7 @@ package ru.ekbtreeshelp.api.converter;
 
 import org.mapstruct.Mapper;
 import ru.ekbtreeshelp.api.dto.FileDto;
-import ru.ekbtreeshelp.api.entity.FileEntity;
+import ru.ekbtreeshelp.core.entity.FileEntity;
 
 @Mapper(componentModel = "spring")
 public interface FileConverter {

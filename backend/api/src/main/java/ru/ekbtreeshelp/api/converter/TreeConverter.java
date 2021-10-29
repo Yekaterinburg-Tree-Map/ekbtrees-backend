@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ru.ekbtreeshelp.api.dto.CreateTreeDto;
 import ru.ekbtreeshelp.api.dto.TreeDto;
-import ru.ekbtreeshelp.api.entity.Tree;
+import ru.ekbtreeshelp.core.entity.Tree;
 
 @Mapper(
         componentModel = "spring",

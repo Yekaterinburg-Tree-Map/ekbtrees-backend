@@ -2,8 +2,8 @@ package ru.ekbtreeshelp.api.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.ekbtreeshelp.api.entity.User;
-import ru.ekbtreeshelp.api.repository.UserRepository;
+import ru.ekbtreeshelp.core.entity.User;
+import ru.ekbtreeshelp.core.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor

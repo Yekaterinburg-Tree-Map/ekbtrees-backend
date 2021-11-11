@@ -34,10 +34,10 @@ public class TreeController {
     }
 
     @GetMapping
-    List<TreeResponseDto> getAll()
+    List<TreeResponseDto> getAll(@RequestParam Integer firstResult, @RequestParam Integer step)
     {
-        List<Tree> list = treeService.listAll();
-        return list.stream()
+        List<Tree> listAll = treeService.listAll(firstResult, step);
+        return listAll.stream()
                 .map(treeMapper::toResponseDto)
                 .collect(Collectors.toList());
     }

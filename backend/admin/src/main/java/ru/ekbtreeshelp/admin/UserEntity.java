@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Table;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
@@ -16,15 +17,21 @@ import java.util.Date;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(appliesTo = "users")
+@Table(appliesTo= "users")
 public class UserEntity {
 
     @Id
+    @Column(unique = true)
     private Long id;
 
+    @Column
     private String name;
+    @Column
     private String login;
+    @Column
     private Date registryDate;
-
+    @Column
     private boolean blocked;
+
+
 }

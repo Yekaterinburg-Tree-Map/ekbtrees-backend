@@ -3,7 +3,7 @@
 ## Запуск локально
 ### Используя docker-compose
 
-[Установка docker-compose](https://docs.docker.com/compose/install/)
+[Установка docker-compose](https://docs.docker.com/compose/cli-command/#installing-compose-v2)
 
 Находясь в корне проекта можно использовать следующие команды:
 

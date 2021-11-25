@@ -33,6 +33,9 @@ public class User extends BaseEntity {
     private String phone;
 
     @Column
+    private boolean blocked;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private Provider provider;
 

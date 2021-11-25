@@ -17,6 +17,7 @@ public class UserService {
     public User getById(Long id) {
         return userRepository.findById(id).orElseThrow();
     }
+
     public List<UserDto> listUsersWithoutPaging(){
         return userRepository.findAll()
                 .stream()

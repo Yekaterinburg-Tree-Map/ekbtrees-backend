@@ -15,6 +15,7 @@ import ru.ekbtreeshelp.api.dto.CreateTreeDto;
 import ru.ekbtreeshelp.api.dto.TreeDto;
 import ru.ekbtreeshelp.api.service.SecurityService;
 import ru.ekbtreeshelp.api.service.TreeService;
+import ru.ekbtreeshelp.core.entity.Tree;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -99,4 +100,32 @@ public class TreeController {
         return treeService.attachFile(treeId, file);
     }
 
+    @GetMapping
+    @PreAuthorize("permitAll()")
+    List<TreeDto> getAll(@RequestParam Integer firstResult, @RequestParam Integer step)
+    {
+        List<Tree> listAll = treeService.listAll(firstResult, step);
+        return listAll.stream()
+                .map(treeConverter::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PreAuthorize("isAuthenticated()")
+    TreeDto updateTree(@RequestBody TreeDto updateTreeDto)
+    {
+        Tree editedTree = treeService.update(treeConverter.fromDto(updateTreeDto));
+        return treeConverter.toDto(editedTree);
+    }
+
+    @GetMapping("/get/{someValue}")
+    @PreAuthorize("permitAll()")
+    List<TreeDto> getAllBySomeValue(@RequestBody String someValue)
+    {
+        List<Tree> resultList = treeService.findBySomeValue(someValue);
+        return  resultList.stream()
+                .map(treeConverter::toDto)
+                .collect(Collectors.toList());
+    }
 }

@@ -16,6 +16,7 @@ import ru.ekbtreeshelp.core.repository.TreeRepository;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -84,5 +85,23 @@ public class TreeService {
         Long createdFileId = fileService.save(file).getId();
         fileRepository.updateTreeId(createdFileId, treeId);
         return createdFileId;
+    }
+
+    public List<Tree> listAll(Integer firstResult, Integer step) {
+        var listAll = treeRepository.findAll();
+        return listAll.stream()
+                .skip(firstResult)
+                .limit(step - firstResult)
+                .collect(Collectors.toList());
+    }
+
+    public Tree update(Tree tree) {
+        if(tree.getId() == null)
+            throw new IllegalArgumentException("id can't be null");
+        return treeRepository.save(tree);
+    }
+
+    public List<Tree> findBySomeValue(String someValue) {
+        return treeRepository.findAllBySomeValue(someValue);
     }
 }

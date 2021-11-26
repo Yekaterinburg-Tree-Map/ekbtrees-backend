@@ -45,4 +45,5 @@ public interface TreeRepository extends JpaRepository<Tree, Long> {
                                               Double bottomRightX, Double bottomRightY,
                                               Double clusterDistance, Integer srid);
 
+    List<Tree> findAllBySomeValue(String someValue);
 }

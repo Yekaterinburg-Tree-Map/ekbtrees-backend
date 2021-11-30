@@ -10,20 +10,20 @@ import java.util.List;
 @Repository
 public interface UsersRepository extends JpaRepository<UserEntity, Long> {
 
-    @Query("UPDATE UserEntity set blocked = true WHERE id = :id")
-    void blockUser();
+    //@Query("UPDATE UserEntity set blocked = true WHERE id = :id")
+    //void blockUser();
 
-    @Query(nativeQuery = true, value="UPDATE users set is_blocked = true WHERE id = :id")
-    void blockUserNative(Long id);
-
-    @Query(value = "SELECT * FROM users OFFSET (:pageNumber * :pageSize) LIMIT * :pageSize", nativeQuery = true)
-    List<UserData> findUserEntitiesBySomeValueWithPaging(String value, int pageNumber, int pageSize);
+    //@Query(nativeQuery = true, value="UPDATE users set is_blocked = true WHERE id = :id")
+    //void blockUserNative(Long id);
 
     @Query(value = "SELECT * FROM users OFFSET (:pageNumber * :pageSize) LIMIT * :pageSize", nativeQuery = true)
-    List<UserData> listAllUsers(int pageNumber, int pageSize);
+    List<UserEntity> findUserEntitiesBySomeValueWithPaging(String value, int pageNumber, int pageSize);
+
+    @Query(value = "SELECT * FROM users OFFSET (:pageNumber * :pageSize) LIMIT * :pageSize", nativeQuery = true)
+    List<UserEntity> listAllUsers(int pageNumber, int pageSize);
 
     @Query(value = "SELECT * FROM users", nativeQuery = true)
-    List<UserData> listWithoutPaging();
+    List<UserEntity> listWithoutPaging();
 
 
 }

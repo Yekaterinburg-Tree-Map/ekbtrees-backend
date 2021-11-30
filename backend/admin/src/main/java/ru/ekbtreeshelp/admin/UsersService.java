@@ -15,14 +15,15 @@ public class UsersService {
     public final UsersRepository usersRepository;
 
     List<UserData> listAllUsers(Integer firstResult, Integer pageSize){
-        return usersRepository.findAll().stream().map(userEntity -> new UserData(userEntity.getName(), userEntity.getLogin(),
+        return usersRepository.listAllUsers(firstResult,pageSize).stream().map(userEntity -> new UserData(userEntity.getName(), userEntity.getLogin(),
                 new Date(), userEntity.getId(), false)).collect(Collectors.toList());
     }
 
     List<UserData> listWithoutPaging(){
-        return usersRepository.findAll().stream().map(userEntity -> new UserData(userEntity.getName(), userEntity.getLogin(),
+        return usersRepository.listWithoutPaging().stream().map(userEntity -> new UserData(userEntity.getName(), userEntity.getLogin(),
                 new Date(), userEntity.getId(), false)).collect(Collectors.toList());
     }
+
 
     public void blockUser(Long id){
         UserEntity user = usersRepository.getOne(id);

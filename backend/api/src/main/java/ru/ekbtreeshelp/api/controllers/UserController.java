@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
-//
     private final UserService userService;
     private final UserConverter userConverter;
     private final SecurityService securityService;

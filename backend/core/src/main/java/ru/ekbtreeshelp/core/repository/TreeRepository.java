@@ -44,6 +44,4 @@ public interface TreeRepository extends JpaRepository<Tree, Long> {
     List<Object[]> findClustersInRegion(Double topLeftX, Double topLeftY,
                                               Double bottomRightX, Double bottomRightY,
                                               Double clusterDistance, Integer srid);
-
-    List<Tree> findAllBySomeValue(String someValue);
 }

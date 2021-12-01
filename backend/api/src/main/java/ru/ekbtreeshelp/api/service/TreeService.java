@@ -1,6 +1,7 @@
 package ru.ekbtreeshelp.api.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -73,8 +74,13 @@ public class TreeService {
         return treeRepository.findById(id).orElseThrow();
     }
 
-    public List<Tree> getAllByAuthorId(Long authorId) {
-        return treeRepository.findAllByAuthorId(authorId);
+    public List<Tree> getAllByAuthorId(Long authorId, Integer page, Integer step) {
+        var firstResult = page * step;
+        var listTree = treeRepository.findAllByAuthorId(authorId);
+        return listTree.stream()
+                .skip(firstResult)
+                .limit(step)
+                .collect(Collectors.toList());
     }
 
     public void delete(Long id) {
@@ -87,11 +93,10 @@ public class TreeService {
         return createdFileId;
     }
 
-    public List<Tree> listAll(Integer firstResult, Integer step) {
-        var listAll = treeRepository.findAll();
+    public List<Tree> listAll(Integer page, Integer step) {
+        var pageSize = PageRequest.of(page, step);
+        var listAll = treeRepository.findAll(pageSize);
         return listAll.stream()
-                .skip(firstResult)
-                .limit(step - firstResult)
                 .collect(Collectors.toList());
     }
 
@@ -99,9 +104,5 @@ public class TreeService {
         if(tree.getId() == null)
             throw new IllegalArgumentException("id can't be null");
         return treeRepository.save(tree);
-    }
-
-    public List<Tree> findBySomeValue(String someValue) {
-        return treeRepository.findAllBySomeValue(someValue);
     }
 }

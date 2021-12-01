@@ -57,11 +57,11 @@ public class TreeController {
 
     @Operation(summary = "Предоставляет деревья текущего пользователя")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/get")
+    @GetMapping("/get/{page}")
     @PreAuthorize("isAuthenticated()")
-    public List<TreeDto> get() {
+    public List<TreeDto> get(@PathVariable Integer page, @RequestParam Integer step) {
         Long authorId = securityService.getCurrentUserId();
-        return treeService.getAllByAuthorId(authorId).stream().map(treeConverter::toDto).collect(Collectors.toList());
+        return treeService.getAllByAuthorId(authorId, page, step).stream().map(treeConverter::toDto).collect(Collectors.toList());
     }
 
     @Operation(summary = "Удаляет дерево по id")
@@ -100,14 +100,21 @@ public class TreeController {
         return treeService.attachFile(treeId, file);
     }
 
-    @GetMapping
+    @GetMapping("/getAll/{page}")
     @PreAuthorize("permitAll()")
-    List<TreeDto> getAll(@RequestParam Integer firstResult, @RequestParam Integer step)
+    List<TreeDto> getAll(@PathVariable Integer page, @RequestParam Integer step)
     {
-        List<Tree> listAll = treeService.listAll(firstResult, step);
+        List<Tree> listAll = treeService.listAll(page, step);
         return listAll.stream()
                 .map(treeConverter::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/getAllByAuthor/{authorId}/{page}")
+    @PreAuthorize("permitAll()")
+    List<TreeDto> getAllByAuthorId(@PathVariable Long authorId, @PathVariable Integer page, @RequestParam Integer step)
+    {
+        return treeService.getAllByAuthorId(authorId, page, step).stream().map(treeConverter::toDto).collect(Collectors.toList());
     }
 
     @PutMapping
@@ -117,15 +124,5 @@ public class TreeController {
     {
         Tree editedTree = treeService.update(treeConverter.fromDto(updateTreeDto));
         return treeConverter.toDto(editedTree);
-    }
-
-    @GetMapping("/get/{someValue}")
-    @PreAuthorize("permitAll()")
-    List<TreeDto> getAllBySomeValue(@RequestBody String someValue)
-    {
-        List<Tree> resultList = treeService.findBySomeValue(someValue);
-        return  resultList.stream()
-                .map(treeConverter::toDto)
-                .collect(Collectors.toList());
     }
 }

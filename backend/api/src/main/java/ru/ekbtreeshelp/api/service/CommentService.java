@@ -1,6 +1,8 @@
 package ru.ekbtreeshelp.api.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.ekbtreeshelp.api.converter.CommentConverter;
 import ru.ekbtreeshelp.api.dto.CommentDto;
@@ -37,11 +39,20 @@ public class CommentService {
         return commentRepository.save(commentEntity).getId();
     }
 
-    public List<Comment> getAllByTreeId(Long treeId) {
-        return commentRepository.findAllByTreeId(treeId);
+    public List<Comment> getAllByTreeId(Long treeId, Integer pageNumber, Integer size) {
+        var page = PageRequest.of(pageNumber, size, Sort.by("CreationDate"));
+        return commentRepository.findAllByTreeId(treeId, page);
     }
 
     public void delete(Long id) {
         commentRepository.deleteById(id);
     }
+
+    public List<Comment> getAllByAuthorId(Long authorId, Integer pageNumber, Integer size) {
+        var page = PageRequest.of(pageNumber, size, Sort.by("CreationDate"));
+        return commentRepository.findAllByAuthorId(authorId, page);
+    }
+
+    public void deleteAllCommentByAuthor(Long authorId) { commentRepository.deleteAllByAuthorId(authorId); }
 }
+

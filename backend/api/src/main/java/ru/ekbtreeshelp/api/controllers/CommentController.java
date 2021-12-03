@@ -36,8 +36,8 @@ public class CommentController {
     @Operation(summary = "Предоставляет комментарии по id дерева")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/get-all/{treeId}")
-    public List<CommentDto> getAllByTreeId(@PathVariable Long treeId) {
-        return commentConverter.toDto(commentService.getAllByTreeId(treeId));
+    public List<CommentDto> getAllByTreeId(@PathVariable Long treeId, @RequestBody Integer page, @RequestBody Integer size) {
+        return commentConverter.toDto(commentService.getAllByTreeId(treeId, page, size));
     }
 
     @Operation(summary = "Удаляет комментарий по id")
@@ -46,4 +46,25 @@ public class CommentController {
     @PreAuthorize("hasAnyAuthority(@Roles.MODERATOR, @Roles.SUPERUSER) " +
             "or hasPermission(#id, @Domains.COMMENT, @Permissions.DELETE)")
     public void delete(@PathVariable Long id){ commentService.delete(id);}
+
+    @Operation(summary = "Предоставляет комментарии по id пользователя")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/get-all/{authorId}")
+    public List<CommentDto> getAllByAuthorId(@PathVariable Long authorId, @RequestBody Integer page, @RequestBody Integer size) {
+        return commentConverter.toDto(commentService.getAllByAuthorId(authorId, page, size));
+    }
+
+    @Operation(summary = "Удаляет все комментарии по id пользователя")
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/delete/{authorId}")
+    @PreAuthorize("hasAnyAuthority(@Roles.MODERATOR, @Roles.SUPERUSER) " +
+            "or hasPermission(#id, @Domains.COMMENT, @Permissions.DELETE)")
+    public void deleteAllComment(@PathVariable Long authorId) { commentService.deleteAllCommentByAuthor(authorId); }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/edit")
+    public Long edit(@RequestBody CommentDto commentDto)
+    {
+        return commentService.save(commentDto);
+    }
 }

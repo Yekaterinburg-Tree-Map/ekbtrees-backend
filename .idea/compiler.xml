@@ -7,14 +7,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="core" />
         <module name="admin" />
-        <module name="tests" />
+        <module name="core" />
         <module name="api" />
         <module name="auth" />
       </profile>
+      <profile name="Annotation profile for ekbtreeshelp-parent" enabled="true">
+        <sourceOutputDir name="../../target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="tests" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="admin" target="17" />
       <module name="auth (1)" target="11" />
       <module name="wrapper" target="1.5" />
     </bytecodeTargetLevel>

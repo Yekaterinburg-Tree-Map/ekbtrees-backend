@@ -7,9 +7,7 @@ import io.restassured.http.ContentType
 import io.restassured.response.Response
 import org.junit.jupiter.api.BeforeEach
 import ru.ekbtreeshelp.tests.RestTest
-import ru.ekbtreeshelp.tests.data.GeographicalPointDto
 import ru.ekbtreeshelp.tests.data.SpeciesTreeDto
-import ru.ekbtreeshelp.tests.data.TreeDto
 
 import static io.restassured.RestAssured.requestSpecification
 import static io.restassured.RestAssured.responseSpecification
@@ -33,7 +31,7 @@ abstract class ApiTest extends RestTest {
         ) as Collection<SpeciesTreeDto>)[0]
     }
 
-    protected static Response sendCreateTreeRequest() {
+    protected static Response sendCreateTreeRequest(Map<String, Object> creationParamsOverride = [:]) {
         Map<String, Object> body = [age                   : 1,
                                     conditionAssessment   : 1,
                                     diameterOfCrown       : 1,
@@ -50,33 +48,41 @@ abstract class ApiTest extends RestTest {
                                     treePlantingType      : 'planting type',
                                     trunkGirth            : 1]
 
+        body << creationParamsOverride
+
         post('/api/tree', body)
     }
 
-    @Deprecated
-    protected static Response sendAddTreeRequest() {
-        TreeDto tree = new TreeDto(
-                geographicalPoint: new GeographicalPointDto(
-                        longitude: 55.5,
-                        latitude: 55.5
-                ),
-                species: getFirstSpecie(),
-                treeHeight: 5.5,
-                numberOfTreeTrunks: 1,
-                trunkGirth: 5,
-                diameterOfCrown: 5,
-                heightOfTheFirstBranch: 5,
-                conditionAssessment: 5,
-                age: 5,
-                treePlantingType: 'test',
-                status: 'test'
-        )
+    protected static Response sendCreateTreeWithFilesRequest() {
+        Map<String, Object> body = [age                   : 1,
+                                    conditionAssessment   : 1,
+                                    diameterOfCrown       : 1,
+                                    fileIds               : [uploadFile()],
+                                    geographicalPoint     : [
+                                            latitude : 55.5,
+                                            longitude: 55.5
+                                    ],
+                                    heightOfTheFirstBranch: 1,
+                                    numberOfTreeTrunks    : 1,
+                                    speciesId             : 8,
+                                    status                : 'alive',
+                                    treeHeight            : 1,
+                                    treePlantingType      : 'planting type',
+                                    trunkGirth            : 1]
 
-        return post('/api/tree/save', tree)
+        post('/api/tree', body)
     }
 
-    protected static Long createTree() {
-        Response response = sendCreateTreeRequest()
+    protected static Long createTree(Map<String, Object> creationParamsOverride = [:]) {
+        Response response = sendCreateTreeRequest(creationParamsOverride)
+
+        response.then().statusCode(201)
+
+        return response.asString().toLong()
+    }
+
+    protected static Long createTreeWithFiles() {
+        Response response = sendCreateTreeWithFilesRequest()
 
         response.then().statusCode(201)
 

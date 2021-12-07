@@ -18,8 +18,12 @@ public class SecurityService {
         return userRepository.findById(getCurrentUserId()).orElseThrow();
     }
 
+    public Authentication getCurrentAuth() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
     public Long getCurrentUserId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = getCurrentAuth();
         if (authentication == null) {
             throw new IllegalStateException("There is no current authentication!");
         }

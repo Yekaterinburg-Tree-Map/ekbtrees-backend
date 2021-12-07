@@ -5,25 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-@Schema(description = "Транспортная сущность нового дерева")
-public class CreateTreeDto {
+@Schema(description = "Транспортная сущность редактируемого дерева")
+public class UpdateTreeDto {
 
-    @Valid
     @Schema(description = "Местоположение дерева в географической системе координат")
-    @NotNull
     private GeographicalPointDto geographicalPoint;
 
     @Schema(description = "Идентификатор породы дерева")
-    @NotNull
     private Long speciesId;
 
     @Min(0)

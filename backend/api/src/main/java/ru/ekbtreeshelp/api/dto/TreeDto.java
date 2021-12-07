@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.time.Instant;
 import java.util.Collection;
 
 @Data
@@ -51,10 +50,10 @@ public class TreeDto {
     private String treePlantingType;
 
     @Schema(description = "Дата и время добавления записи")
-    private Instant created;
+    private Long created;
 
     @Schema(description = "Дата и время последнего редактирования информации о дереве")
-    private Instant updated;
+    private Long updated;
 
     @Schema(description = "Ссылка на автора")
     private Long authorId;
@@ -64,5 +63,11 @@ public class TreeDto {
 
     @Schema(description = "Список идентификаторов файлов, связанных с деревом")
     private Collection<Long> fileIds;
+
+    @Schema(description = "Флаг возможности редактирования дерева текущим пользователем")
+    private boolean editable;
+
+    @Schema(description = "Флаг возможности удаления дерева текущим пользователем")
+    private boolean deletable;
 
 }

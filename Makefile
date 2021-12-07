@@ -7,13 +7,9 @@ build-auth:
 	@./mvnw -T 1C clean install -pl backend/core -am -DskipTests && \
 	 ./mvnw -T 1C clean spring-boot:build-image -pl backend/auth -DskipTests
 
-build-admin:
-	@/mvnw -T 1C clean install -pl backend/core -am -DskipTests && \
-	 ./mvnw -T 1C clean spring-boot:build-image -pl backend/admin -DskipTests
-
 build-backend:
 	@./mvnw -T 1C clean install -pl backend/core -am -DskipTests && \
-	 ./mvnw -T 1C clean spring-boot:build-image -pl backend/admin,backend/api,backend/auth -DskipTests
+	 ./mvnw -T 1C clean spring-boot:build-image -pl backend/api,backend/auth -DskipTests
 
 build-rest-tests:
 	@docker build -f rest-tests.Dockerfile -t docker.io/donkeyhott/ekbtrees-rest-tests:latest .

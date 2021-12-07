@@ -7,3 +7,7 @@
 /dataSources/
 /dataSources.local.xml
 /uiDesigner.xml
+
+misc.xml
+encodings.xml
+compiler.xml

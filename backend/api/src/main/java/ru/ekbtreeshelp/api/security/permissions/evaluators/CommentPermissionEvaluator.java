@@ -17,7 +17,8 @@ public class CommentPermissionEvaluator extends DomainPermissionEvaluatorBase {
     private final CommentRepository commentRepository;
 
     private final Map<String, BiFunction<Authentication, Long, Boolean>> permissionCheckers = Map.of(
-            Permissions.DELETE, this::userIsAuthor
+            Permissions.DELETE, this::userIsAuthor,
+            Permissions.EDIT, this::userIsAuthor
     );
 
     @Override

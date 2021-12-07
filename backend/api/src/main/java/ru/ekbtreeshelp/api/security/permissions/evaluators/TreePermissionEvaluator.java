@@ -17,7 +17,8 @@ public class TreePermissionEvaluator extends DomainPermissionEvaluatorBase {
     private final TreeRepository treeRepository;
 
     private final Map<String, BiFunction<Authentication, Long, Boolean>> permissionCheckers = Map.of(
-            Permissions.DELETE, this::userIsAuthor
+            Permissions.DELETE, this::userIsAuthor,
+            Permissions.EDIT, this::userIsAuthor
     );
 
     @Override

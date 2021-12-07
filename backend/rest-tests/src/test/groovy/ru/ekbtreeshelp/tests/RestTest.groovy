@@ -75,6 +75,24 @@ abstract class RestTest {
                 .post(path)
     }
 
+    protected static Response put(String path, Object body) {
+        RequestSpecification specification = given()
+
+        if (body instanceof File) {
+            specification
+                    .multiPart('file', body)
+                    .contentType(ContentType.MULTIPART)
+        } else {
+            specification.body(body)
+        }
+
+        setAuth(specification)
+
+        return specification
+                .when()
+                .put(path)
+    }
+
     protected static Response delete(String path) {
 
         RequestSpecification specification = given()

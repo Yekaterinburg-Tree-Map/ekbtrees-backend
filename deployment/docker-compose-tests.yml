@@ -5,17 +5,25 @@ services:
     environment:
       DATASOURCE_URL: "jdbc:postgresql://postgres:5432/ectm"
       S3_HOST: "http://s3:9090"
+      JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
     depends_on:
       - postgres
       - s3
       - auth
+    ports:
+      - "8080:8080"
+      - "5005:5005"
 
   auth:
     image: donkeyhott/ekbtrees-auth:latest
     environment:
       DATASOURCE_URL: "jdbc:postgresql://postgres:5432/ectm"
+      JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006
     depends_on:
       - postgres
+    ports:
+      - "8081:8081"
+      - "5006:5006"
 
   postgres:
     image: postgis/postgis:12-3.0-alpine

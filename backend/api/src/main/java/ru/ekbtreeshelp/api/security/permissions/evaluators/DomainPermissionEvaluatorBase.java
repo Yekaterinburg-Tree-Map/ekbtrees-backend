@@ -18,8 +18,11 @@ public abstract class DomainPermissionEvaluatorBase implements DomainPermissionE
     }
 
     protected boolean userIsAuthor(Authentication authentication, Long entityId) {
-        JWTUserDetails principal = (JWTUserDetails) authentication.getPrincipal();
-        return getAuthorId(entityId).equals(principal.getId());
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof JWTUserDetails jwtUserDetails) {
+            return getAuthorId(entityId).equals(jwtUserDetails.getId());
+        }
+        return false;
     }
 
     protected abstract Long getAuthorId(Long entityId);

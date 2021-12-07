@@ -8,18 +8,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.ekbtreeshelp.api.converter.TreeConverter;
 import ru.ekbtreeshelp.api.dto.CreateTreeDto;
+import ru.ekbtreeshelp.api.dto.UpdateTreeDto;
 import ru.ekbtreeshelp.api.dto.TreeDto;
 import ru.ekbtreeshelp.api.service.SecurityService;
 import ru.ekbtreeshelp.api.service.TreeService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "api/tree", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -29,20 +33,11 @@ public class TreeController {
     private final TreeConverter treeConverter;
     private final SecurityService securityService;
 
-    @Deprecated
-    @Operation(summary = "Сохраняет дерево")
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/save")
-    @PreAuthorize("isAuthenticated()")
-    public Long save(@RequestBody TreeDto treeDto) {
-        return treeService.save(treeDto);
-    }
-
     @Operation(summary = "Сохраняет новое дерево")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     @PreAuthorize("isAuthenticated()")
-    public Long create(@RequestBody CreateTreeDto createTreeDto) {
+    public Long create(@RequestBody @Valid CreateTreeDto createTreeDto) {
         return treeService.create(createTreeDto);
     }
 
@@ -52,6 +47,14 @@ public class TreeController {
     @PreAuthorize("permitAll()")
     public TreeDto get(@PathVariable Long id) {
         return treeConverter.toDto(treeService.get(id));
+    }
+
+    @Operation(summary = "Редактирует существующее дерево")
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority(@Roles.SUPERUSER, @Roles.MODERATOR) " +
+            "or hasPermission(#id, @Domains.TREE, @Permissions.EDIT)")
+    public void update(@PathVariable Long id, @Valid @RequestBody UpdateTreeDto updateTreeDto) {
+        treeService.update(id, updateTreeDto);
     }
 
     @Operation(summary = "Предоставляет деревья текущего пользователя")

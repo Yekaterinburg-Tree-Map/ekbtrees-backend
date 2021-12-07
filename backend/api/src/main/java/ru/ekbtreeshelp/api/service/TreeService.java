@@ -6,7 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ru.ekbtreeshelp.api.converter.TreeConverter;
 import ru.ekbtreeshelp.api.dto.CreateTreeDto;
-import ru.ekbtreeshelp.api.dto.TreeDto;
+import ru.ekbtreeshelp.api.dto.UpdateTreeDto;
+import ru.ekbtreeshelp.core.entity.FileEntity;
 import ru.ekbtreeshelp.core.entity.SpeciesTree;
 import ru.ekbtreeshelp.core.entity.Tree;
 import ru.ekbtreeshelp.core.repository.FileRepository;
@@ -28,20 +29,6 @@ public class TreeService {
     private final SpeciesTreeRepository speciesTreeRepository;
     private final SecurityService securityService;
 
-    @Deprecated
-    @Transactional
-    public Long save(TreeDto tree) {
-
-        Optional<SpeciesTree> speciesTree = speciesTreeRepository.findById(tree.getSpecies().getId());
-        if(speciesTree.isEmpty()) {
-            throw new IllegalArgumentException("Species not found");
-        }
-
-        Tree treeEntity = treeConverter.fromDto(tree);
-
-        return createTree(tree.getFileIds(), speciesTree.get(), treeEntity);
-    }
-
     @Transactional
     public Long create(CreateTreeDto createTreeDto) {
         Optional<SpeciesTree> speciesTree = speciesTreeRepository.findById(createTreeDto.getSpeciesId());
@@ -54,6 +41,13 @@ public class TreeService {
         return createTree(createTreeDto.getFileIds(), speciesTree.get(), treeEntity);
     }
 
+    @Transactional
+    public void update(Long id, UpdateTreeDto updateTreeDto) {
+        Tree treeEntity = treeRepository.getOne(id);
+
+        treeConverter.updateTreeFromDto(updateTreeDto, treeEntity);
+    }
+
     private Long createTree(Collection<Long> fileIds, SpeciesTree speciesTree, Tree treeEntity) {
         if (treeEntity.getId() == null) {
             treeEntity.setAuthor(securityService.getCurrentUser());
@@ -63,7 +57,11 @@ public class TreeService {
         Long id = treeRepository.save(treeEntity).getId();
 
         if (fileIds != null) {
-            fileIds.forEach(fileId -> fileRepository.updateTreeId(fileId, treeEntity.getId()));
+            fileIds.forEach(fileId -> {
+                FileEntity fileEntity = fileRepository.getOne(fileId);
+                fileEntity.setTree(treeEntity);
+                fileRepository.save(fileEntity);
+            });
         }
         return id;
     }

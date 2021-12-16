@@ -2,6 +2,7 @@ package ru.ekbtreeshelp.api.service;
 
 import lombok.RequiredArgsConstructor;
 import org.postgis.Point;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.ekbtreeshelp.api.config.GeoConfig;
 import ru.ekbtreeshelp.api.dto.GeographicalPointDto;
@@ -43,7 +44,7 @@ public class TreeMapInfoService {
         }).collect(Collectors.toList());
     }
 
-    public List<Tree> getAllByAuthorId(Long authorId) {
-        return treeRepository.findAllByAuthorId(authorId);
+    public List<Tree> getAllByAuthorId(Long authorId, int page, int size) {
+        return treeRepository.findAllByAuthorId(authorId, PageRequest.of(page, size));
     }
 }

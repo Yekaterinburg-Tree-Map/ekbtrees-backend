@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.http.auth.InvalidCredentialsException;
 import org.springframework.stereotype.Service;
 import ru.ekbtreeshelp.auth.dto.JwtDto;
-import ru.ekbtreeshelp.auth.utils.CryptoUtils;
+import ru.ekbtreeshelp.core.utils.CryptoUtils;
 import ru.ekbtreeshelp.core.entity.RefreshToken;
 import ru.ekbtreeshelp.core.entity.User;
 import ru.ekbtreeshelp.core.repository.RefreshTokenRepository;
@@ -63,6 +63,17 @@ public class TokensService {
 
     public JwtDto getTokensByOAuth2(User user) {
         return generateNewTokens(user);
+    }
+
+    public void deleteTokens(String accessToken, String refreshToken) throws InvalidCredentialsException {
+        User userFromAccessToken = jwtService.extractUser(accessToken, false);
+        User userFromRefreshToken = jwtService.extractUser(refreshToken, true);
+
+        if (!userFromAccessToken.getId().equals(userFromRefreshToken.getId())) {
+            throw new InvalidCredentialsException("Suspicious delete tokens request");
+        }
+
+        refreshTokenRepository.deleteByTokenAndUser(refreshToken, userFromRefreshToken);
     }
 
     private InvalidCredentialsException invalidLoginOrPassword() {

@@ -1,6 +1,9 @@
 package ru.ekbtreeshelp.api.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,14 +34,19 @@ public class TreeService {
 
     @Transactional
     public Long create(CreateTreeDto createTreeDto) {
-        Optional<SpeciesTree> speciesTree = speciesTreeRepository.findById(createTreeDto.getSpeciesId());
-        if(speciesTree.isEmpty()) {
-            throw new IllegalArgumentException("Species not found");
+        Long speciesId = createTreeDto.getSpeciesId();
+        SpeciesTree speciesTree = null;
+        if (speciesId != null) {
+            Optional<SpeciesTree> speciesTreeOptional = speciesTreeRepository.findById(speciesId);
+            if(speciesTreeOptional.isEmpty()) {
+                throw new IllegalArgumentException("Species not found");
+            }
+            speciesTree = speciesTreeOptional.get();
         }
 
         Tree treeEntity = treeConverter.fromDto(createTreeDto);
 
-        return createTree(createTreeDto.getFileIds(), speciesTree.get(), treeEntity);
+        return createTree(createTreeDto.getFileIds(), speciesTree, treeEntity);
     }
 
     @Transactional
@@ -70,8 +78,14 @@ public class TreeService {
         return treeRepository.findById(id).orElseThrow();
     }
 
-    public List<Tree> getAllByAuthorId(Long authorId) {
-        return treeRepository.findAllByAuthorId(authorId);
+    public List<Tree> getAllByAuthorId(Long authorId, Integer pageNumber, Integer step) {
+        var page = PageRequest.of(pageNumber, step, Sort.by("id").descending());
+        return treeRepository.findAllByAuthorId(authorId, page);
+    }
+
+    public Page<Tree> listAll(Integer pageNumber, Integer step) {
+        var page = PageRequest.of(pageNumber, step, Sort.by("id").descending());
+        return treeRepository.findAll(page);
     }
 
     public void delete(Long id) {

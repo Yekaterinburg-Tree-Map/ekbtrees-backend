@@ -47,4 +47,22 @@ class AuthControllerTest extends AuthTest {
                 .cookie(CookieNames.ACCESS_TOKEN, not(null))
                 .cookie(CookieNames.REFRESH_TOKEN, not(null))
     }
+
+    @Test
+    void testLogout() {
+        Response response = given()
+                .header(HttpHeaders.AUTHORIZATION, "Basic ${getBasicAuthHeader()}")
+                .post('/auth/login')
+
+        testContext.user = null
+
+        given()
+                .cookie(CookieNames.ACCESS_TOKEN, response.cookie(CookieNames.ACCESS_TOKEN))
+                .cookie(CookieNames.REFRESH_TOKEN, response.cookie(CookieNames.REFRESH_TOKEN))
+                .post('/auth/logout')
+        .then()
+                .statusCode(200)
+                .cookie(CookieNames.ACCESS_TOKEN, equalTo(''))
+                .cookie(CookieNames.REFRESH_TOKEN, equalTo(''))
+    }
 }

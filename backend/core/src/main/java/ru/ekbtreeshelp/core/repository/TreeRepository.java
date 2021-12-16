@@ -1,5 +1,6 @@
 package ru.ekbtreeshelp.core.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,7 @@ import java.util.List;
 @Transactional
 public interface TreeRepository extends JpaRepository<Tree, Long> {
 
-    List<Tree> findAllByAuthorId(Long authorId);
+    List<Tree> findAllByAuthorId(Long authorId, Pageable pageable);
 
     @Query(
             value = "SELECT * " +

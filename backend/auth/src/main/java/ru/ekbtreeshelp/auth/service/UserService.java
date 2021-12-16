@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.ekbtreeshelp.auth.constants.AuthConstants;
 import ru.ekbtreeshelp.auth.dto.NewUserDto;
 import ru.ekbtreeshelp.auth.exception.AuthServiceException;
-import ru.ekbtreeshelp.auth.utils.CryptoUtils;
+import ru.ekbtreeshelp.core.utils.CryptoUtils;
 import ru.ekbtreeshelp.core.entity.Provider;
 import ru.ekbtreeshelp.core.entity.User;
 import ru.ekbtreeshelp.core.repository.RoleRepository;

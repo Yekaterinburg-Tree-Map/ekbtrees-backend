@@ -85,4 +85,38 @@ class UserControllerTest extends ApiTest {
     private static Map<String, Object> getCurrentUserInfo() {
         return (new JsonSlurper().parseText(get('/api/user').asString()) as Map<String, Object>)
     }
+
+    @Test
+    void testGetListOfUsers(){
+        Map<String, Object> userInfo = getCurrentUserInfo()
+
+        Long userId = createUser(new TestUser())
+        testContext.user = null
+
+        get("/api/user/listUsersWithoutPaging").then()
+                .statusCode(200)
+                .body("find { id == ${ userId } }", not(null))
+    }
+
+    @Test
+    void testBlockUser(){
+        Map<String, Object> userInfo = getCurrentUserInfo()
+        get("/api/user/block/${userInfo.id}")
+                .then()
+                .statusCode(200)
+                .body("find { id == ${ userInfo.id } }", not(null))
+
+    }
+
+    @Test
+    void testGetListOfUsersPaging(){
+        Map<String, Object> userInfo = getCurrentUserInfo()
+
+        Long userId = createUser(new TestUser())
+        testContext.user = null
+
+        get("/api/user/listUsers/pageNumber=1&pageSize=50").then()
+                .statusCode(200)
+                .body("find { id == ${ userId } }", not(null))
+    }
 }

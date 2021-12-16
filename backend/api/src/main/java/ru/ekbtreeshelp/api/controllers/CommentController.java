@@ -46,4 +46,35 @@ public class CommentController {
     @PreAuthorize("hasAnyAuthority(@Roles.MODERATOR, @Roles.SUPERUSER) " +
             "or hasPermission(#id, @Domains.COMMENT, @Permissions.DELETE)")
     public void delete(@PathVariable Long id){ commentService.delete(id);}
+
+    @Operation(summary = "Предоставляет комментарии по id пользователя")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/get-all/{authorId}/{page}/{step}")
+    public List<CommentDto> getAllByAuthorId(@PathVariable Long authorId, @PathVariable Integer page, @PathVariable Integer step) {
+        return commentConverter.toDto(commentService.getAllByAuthorId(authorId, page, step));
+    }
+
+    @Operation(summary = "Предоставляет комментарии по id пользователя")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/get-all/{authorId}")
+    @PreAuthorize("permitAll()")
+    public List<CommentDto> getAllByAuthorId(@PathVariable Long authorId) {
+        return getAllByAuthorId(authorId,0,10);
+    }
+
+
+    @Operation(summary = "Удаляет все комментарии по id пользователя")
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/delete-all/{authorId}")
+    @PreAuthorize("hasAnyAuthority(@Roles.MODERATOR, @Roles.SUPERUSER) ")
+    public void deleteAllComment(@PathVariable Long authorId) { commentService.deleteAllCommentByAuthor(authorId); }
+
+    @Operation(summary = "Редактирует комментарий по id")
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority(@Roles.SUPERUSER, @Roles.MODERATOR) " +
+            "or hasPermission(#id, @Domains.TREE, @Permissions.EDIT)")
+    public Long edit(@PathVariable Long id, @RequestBody CommentDto commentDto) {
+        return commentService.edit(id, commentDto);
+    }
 }

@@ -6,6 +6,7 @@ import ru.ekbtreeshelp.auth.dto.JwtDto;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.stream.Stream;
 
 public class CookieUtils {
 
@@ -22,4 +23,13 @@ public class CookieUtils {
         response.addCookie(refreshTokenCookie);
     }
 
+    public static void removeCookies(HttpServletResponse response, String... cookieNames) {
+        Stream.of(cookieNames).forEach(cookieName -> {
+            Cookie cookie = new Cookie(cookieName, "");
+            cookie.setHttpOnly(false);
+            cookie.setPath("/");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+        });
+    }
 }

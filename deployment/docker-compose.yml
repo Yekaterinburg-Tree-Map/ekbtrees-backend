@@ -41,7 +41,7 @@ services:
   s3:
     image: adobe/s3mock:2.1.29
     environment:
-      initialBuckets: "ectm"
+      initialBuckets: "treeshelp"
     ports:
     - "9090:9090"
     - "9191:9191"

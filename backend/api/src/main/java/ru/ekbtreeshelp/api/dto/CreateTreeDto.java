@@ -23,7 +23,6 @@ public class CreateTreeDto {
     private GeographicalPointDto geographicalPoint;
 
     @Schema(description = "Идентификатор породы дерева")
-    @NotNull
     private Long speciesId;
 
     @Min(0)

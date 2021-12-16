@@ -28,7 +28,9 @@ import ru.ekbtreeshelp.core.SpringComponentScanHelper;
 @SpringBootApplication(
         scanBasePackageClasses = { SpringComponentScanHelper.class, Application.class }
 )
-@ConfigurationPropertiesScan("ru.ekbtreeshelp.api.config")
+@ConfigurationPropertiesScan(
+        basePackageClasses = { SpringComponentScanHelper.class, Application.class }
+)
 @EntityScan(basePackageClasses = { SpringComponentScanHelper.class, Application.class })
 @EnableJpaRepositories(basePackageClasses = { SpringComponentScanHelper.class, Application.class })
 public class Application {

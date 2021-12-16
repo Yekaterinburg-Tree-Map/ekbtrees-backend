@@ -1,9 +1,9 @@
-package ru.ekbtreeshelp.auth.utils;
+package ru.ekbtreeshelp.core.utils;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Component;
-import ru.ekbtreeshelp.auth.config.CryptoConfig;
+import ru.ekbtreeshelp.core.config.CryptoConfig;
 
 @Component
 @RequiredArgsConstructor

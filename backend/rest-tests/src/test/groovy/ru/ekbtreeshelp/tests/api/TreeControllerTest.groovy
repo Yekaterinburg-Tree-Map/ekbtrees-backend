@@ -1,5 +1,6 @@
 package ru.ekbtreeshelp.tests.api
 
+import groovy.json.JsonSlurper
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import ru.ekbtreeshelp.tests.data.TestContext
@@ -169,5 +170,96 @@ class TreeControllerTest extends ApiTest {
                 .statusCode(200)
                 .body('editable', is(false))
                 .body('deletable', is(false))
+    }
+
+    @Test
+    void testFileIDsReturnsWithTree() {
+        Long newTreeId = createTree()
+
+        File file = File.createTempFile('testAttachFile', null)
+        file.write('testFileContent')
+
+        Long createdFileId = post("/api/tree/attachFile/${ newTreeId }", file)
+                .then()
+                .statusCode(200)
+                .extract()
+                .asString()
+                .toLong()
+
+        get("/api/tree/get/${ newTreeId }")
+                .then()
+                .statusCode(200)
+                .body('fileIds?.collect { it as Long }', equalTo([createdFileId]))
+    }
+
+    @Test
+    void testSpeciesIsUpdatable() {
+        Long newTreeId = createTree()
+
+        Long newSpeciesId = 1
+        put("/api/tree/${ newTreeId }", [speciesId: newSpeciesId])
+                .then()
+                .statusCode(200)
+
+        get("/api/tree/get/${ newTreeId }")
+                .then()
+                .statusCode(200)
+                .body('species?.id as Long', equalTo(newSpeciesId))
+    }
+
+    @Test
+    void testGetAllTrees() {
+        var treeId = createTree()
+        testContext.user = null
+
+        get("/api/tree/getAll").then()
+                .statusCode(200)
+                .body("find { it.id == ${ treeId } }", not(null))
+    }
+
+    @Test
+    void testGetAllTreesByAuthorId() {
+        Map<String, Object> userInfo = getCurrentUserInfo()
+        var treeId = createTree()
+        testContext.user = null
+
+        get("/api/tree/getAllByAuthorId/${ userInfo.id }")
+                .then()
+                .statusCode(200)
+                .body("find { it.id == ${ treeId } }", not(null))
+    }
+
+    private static Map<String, Object> getCurrentUserInfo() {
+        return (new JsonSlurper().parseText(get('/api/user').asString()) as Map<String, Object>)
+    }
+
+    @Test
+    void testWrongTreeIdThrows404() {
+        get("/api/tree/get/9876543210")
+                .then()
+                .statusCode(404)
+    }
+
+    @Test
+    void testCreateTreeWithOnlyRequiredParams() {
+        Map<String, Object> body = [age                   : null,
+                                    conditionAssessment   : null,
+                                    diameterOfCrown       : null,
+                                    fileIds               : [],
+                                    geographicalPoint     : [
+                                            latitude : 55.5,
+                                            longitude: 55.5
+                                    ],
+                                    heightOfTheFirstBranch: null,
+                                    numberOfTreeTrunks    : null,
+                                    speciesId             : null,
+                                    status                : null,
+                                    treeHeight            : null,
+                                    treePlantingType      : null,
+                                    trunkGirth            : null]
+
+        sendCreateTreeRequest(body)
+                .then()
+                .statusCode(201)
     }
 }

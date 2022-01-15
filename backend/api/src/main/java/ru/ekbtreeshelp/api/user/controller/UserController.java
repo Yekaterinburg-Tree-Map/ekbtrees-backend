@@ -15,6 +15,7 @@ import ru.ekbtreeshelp.api.security.service.SecurityService;
 import ru.ekbtreeshelp.api.user.service.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Tag(name = "Операции с пользователями")
 @Validated
@@ -58,5 +59,26 @@ public class UserController {
     @Operation(summary = "Редактирует пароль текущего пользователя")
     public void updatePassword(@RequestBody @Valid UpdateUserPasswordDto updateUserPasswordDto) {
         userService.updatePassword(securityService.getCurrentUser(), updateUserPasswordDto.getNewPassword());
+    }
+
+    @GetMapping("/listUsersWithoutPaging")
+    public List<UserDto> listUsersWithoutPaging(){
+        return userService.listUsersWithoutPaging();
+    }
+
+    @GetMapping("/listUsers")
+    public List<UserDto> listUsers(@RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+        return userService.listAllUsers(pageNumber, pageSize);
+    }
+
+    @PutMapping
+    public UserDto update(@RequestBody UserDto userData){
+        UserDto user = userService.update(userData);
+        return user;
+    }
+
+    @GetMapping("/block/{id}")
+    public void blockUser(@RequestBody UserDto userData){
+        userService.blockUser(userData.getId());
     }
 }

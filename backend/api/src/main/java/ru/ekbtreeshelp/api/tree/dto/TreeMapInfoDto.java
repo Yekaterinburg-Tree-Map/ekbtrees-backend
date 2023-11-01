@@ -26,4 +26,6 @@ public class TreeMapInfoDto {
     @Schema(description = "Признак наличия подтверждения дерева модератором")
     private boolean approvedByModerator;
 
+    @Schema(description = "Статус дерева")
+    private String status;
 }
